@@ -48,4 +48,27 @@ feature'User creates a new building record', %Q{
     expect(Building.count).to eql(prev_count)
 
   end
+
+  context "specifies an associated building" do
+    it 'associates the building with an owner' do
+      owner = FactoryGirl.create(:owner, last_name: "Johnson")
+      name = owner.last_name
+
+binding.pry
+    visit new_building_path
+    fill_in 'Street Address', with: "Buckstone Court"
+    fill_in 'City', with: 'Columbia'
+    fill_in 'State', with: 'Maryland'
+    fill_in 'Postal Code', with: '21044'
+    fill_in 'Building Description', with: "Really beautiful yard."
+    select name, from: 'Owner'
+    binding.pry
+    click_on "Enter new building record"
+
+    expect(page).to have_content("You have successfully entered a new building record")
+    expect(Building.last.owner).to_not be_nil
+
+    end
+  end
+
 end

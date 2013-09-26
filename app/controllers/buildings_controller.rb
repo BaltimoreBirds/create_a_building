@@ -31,7 +31,7 @@ private
     @buildings ||= Building.all
   end
   def building_params
-    params.require(:building).permit(:street_address, :description, :city, :state, :postal_code)
+    params.require(:building).permit(:street_address, :description, :city, :state, :postal_code, :owner_id)
   end
 
 end
