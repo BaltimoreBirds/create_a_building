@@ -43,7 +43,6 @@ feature'User creates a new building record', %Q{
     expect(page).to have_content("Enter a new building record")
 
     click_button "Enter new building record"
-    save_and_open_page
     expect(page).to have_content("can't be blank")
     expect(page).to have_content("Enter a new building record")
     expect(Building.count).to eql(prev_count)
