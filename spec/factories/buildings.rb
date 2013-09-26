@@ -4,7 +4,8 @@ FactoryGirl.define do
   factory :building do
     street_address "MyString"
     city "MyString"
-    state "MyString"
+    state "Maryland"
     postal_code 1
+    description "something"
   end
 end

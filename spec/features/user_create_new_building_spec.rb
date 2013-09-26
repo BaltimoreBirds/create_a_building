@@ -16,7 +16,7 @@ feature'User creates a new building record', %Q{
 
 
   it'user enter valid information'do
-
+    FactoryGirl.create(:building)
     prev_count = Building.count
 
     visit new_building_path
@@ -24,14 +24,29 @@ feature'User creates a new building record', %Q{
 
     fill_in 'Street Address', with: "Buckstone Court"
     fill_in 'City', with: 'Columbia'
-    fill_in 'State', with: 'MD'
+    fill_in 'State', with: 'Maryland'
     fill_in 'Postal Code', with: '21044'
     fill_in 'Building Description', with: "Really beautiful yard."
 
     click_button "Enter new building record"
-    expect(page).to have_content("You have successfully entered a new building record")
-    expect(Building.count).to eql(prev_count+1)
 
+    expect(page).to have_content("You have successfully entered a new building record")
     expect(page).to have_content("Enter a new building record")
+    expect(Building.count).to eql(prev_count+1)
+  end
+
+    it'user enter valid information'do
+
+    prev_count = Building.count
+
+    visit new_building_path
+    expect(page).to have_content("Enter a new building record")
+
+    click_button "Enter new building record"
+    save_and_open_page
+    expect(page).to have_content("can't be blank")
+    expect(page).to have_content("Enter a new building record")
+    expect(Building.count).to eql(prev_count)
+
   end
 end

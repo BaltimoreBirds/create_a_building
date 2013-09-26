@@ -24,7 +24,13 @@ class BuildingsController < ApplicationController
     end
   end
 
+
+
 private
+
+  def menu_items
+    @buildings ||= Building.all
+  end
   def building_params
     params.require(:building).permit(:street_address, :description, :city, :state, :postal_code)
   end
