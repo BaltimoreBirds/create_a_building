@@ -1,8 +1,6 @@
 class BuildingsController < ApplicationController
-    helper_method :buildings
+  helper_method :buildings
   def index
-
-
   end
 
   def show
@@ -16,11 +14,12 @@ class BuildingsController < ApplicationController
   def create
     @building = Building.new(building_params)
 
-    if @building.save
-      redirect_to new_building_path,
-        notice: "You have successfully entered a new building record"
-    else
-      render :new
+    respond_to do |format|
+      if @building.save
+       format.html { redirect_to new_building_path, notice: "You have successfully entered a new building record" }
+      else
+        format.html { render action: 'new' }
+      end
     end
   end
 
@@ -32,7 +31,7 @@ private
     @buildings ||= Building.all
   end
   def building_params
-    params.require(:building).permit(:street_address, :description, :city, :state, :postal_code)
+    params.require(:building).permit(:street_address, :description, :city, :state, :postal_code, :owner_id)
   end
 
 end
